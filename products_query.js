@@ -29,11 +29,12 @@ db.products.find({$and:[
  db.products.find({},{_id:0,"product_name":1,"product_material":1});
  db.products.find({"product_material":'Soft'});
  db.products.find({$and: [{"product_color":'indigo'},{"product_price":492}])
- db.products.aggregate([
-     {
-         $group: { _id: "$product_price",
-        noOfproduct: {"$sum":1}
-         }
-     }
- ]);
+ db.product.aggregate([
+    {$group:{
+            _id:'$product_price',
+            Noofdocuments:{'$sum':1}
+        }
+    }, 
+    {$match: {Noofdocuments:2}}    
+    ])
      
